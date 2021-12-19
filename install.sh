@@ -3,6 +3,8 @@ CPG='\033[1;34m'
 TNG='\033[1;32m'
 RED='\033[0;31'
 SSIVER="0.1 RC"
+APPDIR="/MyCompany/App1"
+COMPDIR="/MyCompany"
 
 version() #Version functions
     { 
@@ -11,10 +13,10 @@ version() #Version functions
 
 silentinstall() #In development
     {
-        mkdir /opt/MyCompany
-        mkdir /opt/MyCompany/App1
-        cp TestApp /opt/MyCompany/App1
-        cp uninstall.sh /opt/MyCompany/App1
+        mkdir /opt${APPDIR}
+        mkdir /opt${APPDIR}
+        cp TestApp /opt${APPDIR}
+        cp uninstall.sh /opt${APPDIR}
     }
 
 createshortcut()
@@ -25,8 +27,8 @@ Type=Application
 Version=0.1 RC
 Name=SimpleShellInstaller TestApp
 Comment=A test binary.
-Exec=${STOCKDIR}/MyCompany/App1/TestApp
-Icon=${STOCKDIR}/MyCompany/App1/icon.png
+Exec=${STOCKDIR}${APPDIR}/TestApp
+Icon=${STOCKDIR}${APPDIR}/icon.png
 Terminal=false
 Categories=Application;
 EOF
@@ -62,15 +64,15 @@ echo -e "${CPG}Would you like to install ${TNG}App1? ${CPG}[y/n] (1.4 GB)"
 read kire
 if [[ $kire == y* ]]; then
         custominstalldir
-        mkdir ${STOCKDIR}/MyCompany
-        mkdir ${STOCKDIR}/MyCompany/App1
+        mkdir ${STOCKDIR}${COMPDIR}
+        mkdir ${STOCKDIR}${APPDIR}
 
         echo -e "${CPG}Copying ${TNG}Executables..."
-        cp TestApp ${STOCKDIR}/MyCompany/App1
-        cp uninstall.sh ${STOCKDIR}/MyCompany/App1
+        cp TestApp ${STOCKDIR}${APPDIR}
+        cp uninstall.sh ${STOCKDIR}${APPDIR}
 
         echo -e "${CPG}Copying ${TNG}Data..."
-        cp icon.png ${STOCKDIR}/MyCompany/App1
+        cp icon.png ${STOCKDIR}${APPDIR}
 
         echo -e "${CPG}Adding ${TNG}Shortcut..."
         cd /tmp
